@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<form th:fragment="categoryForm" action="#" th:action="@{/admin/categories/category/add}" th:object="${category}" method="post"
+    enctype="multipart/form-data"  class="form-signin">
+
+  <div class="col-md-12 mb-3">
+    <label for="name">Category Name</label>
+    <input th:field="*{name}" type="text" id="name" name="name" class="form-control"
+           placeholder="Enter Author's Name" required>
+  </div>
+
+  <div class="col-md-12 mb-3">
+    <label for="image">Image Url</label>
+    <input type="file" id="image" name="fileImage" class="form-control"
+         accept="image/png, image/jpeg"  placeholder="Enter Author's Name" required>
+  </div>
+
+
+
+  <div class="col-md-12 mb-3">
+    <label for="description">Description</label>
+    <textarea th:field="*{description}" rows="7" type="text" id="description" name="name" class="form-control"
+              placeholder="Enter Category's Description" required/>
+  </div>
+
+  <div class="form-group col-lg-12 mx-auto">
+    <button type="submit" class="btn btn-primary btn-block py-2 ">Save</button>
+  </div>
+
+</form>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<table th:fragment="categoryTable" class="table">
+    <thead>
+    <tr>
+        <th>Image</th>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="category:${adminCategories}">
+        <td>
+            <a href="https://img.icons8.com/clouds/100/000000/books.png">
+            <img class="circle-image" th:src="@{${category.getPhotosImagePath()}}">
+<!--            <img class="circle-image" src="#" th:src="${category.photosImagePath}">-->
+        </a>
+        </td>
+        <td th:text="${category.id}"></td>
+        <td th:text="${category.name}"></td>
+        <td th:text="${category.description}"></td>
+        <td>
+            <a href="#" th:href="@{'/admin/categories/category/delete/'+ ${category.id}}" type="button"
+               class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></a>
+            <a href="#" th:href="@{'/admin/categories/category/update/'+ ${category.id}}" type="button"
+               class="btn btn-outline-primary"><i class="fas fa-edit"></i></a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

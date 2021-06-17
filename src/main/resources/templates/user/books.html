@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{layouts/main :: layout(~{::main})}" xmlns:th="http://www.thymeleaf.org">
+<body>
+<main role="main">
+
+    <ol class="breadcrumb mt-1">
+        <li class="breadcrumb-item"><a href="#" th:href="@{/home}">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Books</li>
+    </ol>
+    <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 mx-auto g-3 py-3">
+        <div class="col-sm-2 col-md-4" th:if="${books.isEmpty()}">
+            <div class="alert alert-warning" role="alert">
+                No book is available now.
+            </div>
+        </div>
+
+        <div class="col mb-3" th:each="book :${books}">
+            <div class="card h-100 shadow-sm">
+                <img src="https://img.icons8.com/clouds/100/000000/books.png" class="card-img-top" alt="...">
+                <hr class="solid">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="float-left" th:text="${book.name}"></h5>
+                    <div class="clearfix">
+                        <h2 class="float-left card-color"><i>By</i> : <span th:text="${book.author.name}"></span></h2>
+                        <h2 class="float-right card-color" th:text="|${book.price} Kyats|">
+                        </h2>
+                    </div>
+
+                    <p class="card-text text-justify text-overflow" th:text="${book.description}"></p>
+                    <div class="text-center mt-auto">
+                        <div class="row justify-content-center">
+                            <a href="#" th:href="@{'/user/books/book/details/' + ${book.id}}"
+                               class="col-md-5 mb-3 btn btn-outline-success card-link">More Detail</a>
+                            <a href="#" th:href="@{'/carts/cart/add/' +  ${book.id}}"
+                               class="col-md-5 mb-3 btn btn-outline-secondary card-link">Add To Cart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+</body>
+</html>

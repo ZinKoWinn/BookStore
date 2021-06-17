@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{layouts/main :: layout(~{::main})}" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<main role="main">
+
+    <div class="container">
+        <div class="row justify-content-center ">
+
+            <div class="col-lg-10 col-xl-12">
+                <div class="card flex-row my-5">
+
+                    <img class="card-img-left d-none d-md-inline "
+                         src="../../static/images/login.jpg" th:src="@{/images/login.jpg}"
+                         alt="" width="60%">
+                    <div class="card-body w-auto login-bg">
+                        <div class="text-center">
+                            <img class="img mt-lg-3"
+                                 src="../../static/images/icon.png" th:src="@{/images/icon.png}" alt="" width="100"
+                                 height="100">
+                        </div>
+                        <h1 class="card-title text-center text-white">Book Store</h1>
+                        <div th:if="${loginError}" class="alert alert-danger" role="alert">
+                            Wrong username or password
+                        </div>
+
+                        <form action="#" th:action="@{/register}" th:object="${userRegister}" method="post" class="form-signin">
+
+                            <div class="form-group py-1">
+                                <div class="input-group input-group-lg">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="far fa-user"></i></i></span>
+                                    </div>
+                                    <input th:field="*{username}" type="text" id="username" name="email" class="form-control"
+                                           placeholder="Enter User Name" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group py-1">
+                                <div class="input-group input-group-lg">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="far fa-image"></i></span>
+                                    </div>
+                                    <input th:field="*{imageUrl}" type="text" id="imageUrl" name="email" class="form-control"
+                                           placeholder="Enter ImageUrl (fill out something)" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group py-1">
+                                <div class="input-group input-group-lg">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                                    </div>
+                                    <input th:field="*{email}" type="email" id="email" name="email" class="form-control"
+                                           placeholder="Enter Email Address" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group py-1">
+                                <div class="input-group input-group-lg">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-key"></i></span>
+                                    </div>
+                                    <input th:field="*{password}" type="password" id="password" name="password" class="form-control"
+                                           placeholder="Enter Password" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-lg-12 mx-auto">
+                                <button type="submit" class="btn btn-primary btn-block py-2 ">Register</button>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+</body>
+</html>

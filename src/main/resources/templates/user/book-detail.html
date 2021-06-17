@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{layouts/main :: layout(~{::main})}" xmlns:th="http://www.thymeleaf.org">
+<body>
+<main role="main">
+
+    <ol class="breadcrumb mt-1">
+        <li class="breadcrumb-item"><a href="#" th:href="@{/home}">Home</a></li>
+        <li class="breadcrumb-item"><a href="#" th:href="@{/user/books}">Books</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Book Details</li>
+    </ol>
+
+    <div class="col py-4" th:object="${book}">
+
+        <div class="col-sm-2 col-md-4" th:if="${book == null}">
+            <div class="alert alert-warning" role="alert">
+                No book is available now.
+            </div>
+        </div>
+
+        <div class="row mx-auto">
+            <div class="col-md-3 mb-4 mb-md-0">
+                <div class="card">
+                    <img src="https://spzone-simpleprogrammer.netdna-ssl.com/wp-content/uploads/2015/03/careerguide-amazon.jpg"
+                         class="img-fluid" alt="...">
+                </div>
+            </div>
+
+            <div class="col-md-9">
+                <h1 class="display-4 font-weight-bold" th:text="${book.name}"></h1>
+
+                <div class="table-responsive">
+                    <table class="table table-sm table-borderless mb-0">
+                        <tbody>
+                        <tr>
+                            <th class="pl-0 w-25" scope="row"><strong>Author</strong></th>
+                            <td th:text="${book.author.name}"></td>
+                        </tr>
+                        <tr>
+                            <th class="pl-0 w-25" scope="row"><strong>Category</strong></th>
+                            <td th:text="${book.category.name}"></td>
+                        </tr>
+                        <tr>
+                            <th class="pl-0 w-25" scope="row"><strong>Rate</strong></th>
+                            <td class="align-items-center">
+                                <div class="row ml-1">
+                                    <i class="fas fa-star fa-sm text-primary"></i>
+                                    <i class="fas fa-star fa-sm text-primary"></i>
+                                    <i class="fas fa-star fa-sm text-primary"></i>
+                                    <i class="fas fa-star fa-sm text-primary"></i>
+                                    <i class="fas fa-star fa-sm text-primary"></i>
+                                    <span th:text="|( ${book.rate} )|"></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl-0 w-25" scope="row"><strong>Price</strong></th>
+                            <td th:text="|${book.price} Kyats|"></td>
+                        </tr>
+                        <tr>
+                            <th class="pl-0 w-25" scope="row"><strong>Published Date</strong></th>
+                            <td th:text="${book.publishedDate}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mx-auto py-2">
+
+                    <a href="#" th:href="@{'books/book/' + ${book.id} + '/details'}"
+                       class="col-md-2 mb-3 btn btn-outline-secondary card-link">
+                        <i class="fas fa-money-check pr-2"></i>Buy Now</a>
+
+                    <a href="#" th:href="@{'http://localhost:8080/carts/cart/add/' +  ${book.id}}"
+                       class="col-md-2 mr-3 mb-3 btn btn-outline-secondary card-link">
+                        <i class="fas fa-shopping-cart pr-2"></i> Add To Cart</a>
+
+                </div>
+
+
+                <h3 class="py-2">Description</h3>
+                <p class="text-justify py-2" th:text="${book.description}"></p>
+
+                <h3 class="py-2">Content</h3>
+                <p class="text-justify" th:text="${book.content}"></p>
+
+            </div>
+        </div>
+
+
+    </div>
+
+</main>
+</body>
+</html>

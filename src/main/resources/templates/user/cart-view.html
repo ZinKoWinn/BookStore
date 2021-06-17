@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{layouts/main :: layout(~{::main})}" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<main role="main">
+    <div class="container">
+        <form action="#" th:object="${cartItem}"></form>
+        <table id="cart" class="table table-hover table-condensed">
+            <thead>
+            <tr>
+                <th style="width:45%">Product</th>
+                <th style="width:18%">Price</th>
+                <th style="width:7%">Quantity</th>
+                <th style="width:20%" class="text-center">Subtotal</th>
+                <th style="width:10%">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${cartItem.getCartItems()}">
+                <td data-th="Product">
+                    <div class="row">
+                        <div class="col-sm-3 hidden-xs">
+                            <img src="https://media.springernature.com/w153/springer-static/cover/book/9781484237786.jpg"
+                                 width="110px" height="150px" alt="..." class="img-responsive"/></div>
+                        <div class="col-sm-9 float-right">
+                            <h4 class="text-muted" th:text="${item.getBook().name}"></h4>
+                            <div class="row mx-auto">
+                                <h6 class="text-muted" th:text="|:By ${item.getBook().author.name}|"></h6>
+                                <h6 class="offset-1 text-muted" th:text="${item.getBook().category.name}"></h6>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td data-th="Price" th:text="${item.getBook().price}"></td>
+                <td data-th="Quantity">
+                    <input type="number" class="form-control text-center" th:value="${item.quantity}">
+                </td>
+                <td data-th="Subtotal" class="text-center" th:text="${item.getSubTotal()}"></td>
+                <td class="actions" data-th="Action">
+                    <a href="#" th:href="@{'/carts/cart/'+ ${item.getBook().id} +'/remove'}"
+                       class="btn btn-outline-danger">
+                        <i class="fa fa-trash"></i></a>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td><a href="#" th:href="@{/user/books}" class="btn btn-info"></i> Continue Shopping</a></td>
+                <td colspan="2" class="hidden-xs"></td>
+                <td><a href="#" th:href="@{/cart/user/books/checkout}" class="btn btn-success btn-block">Checkout</a></td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+
+</main>
+</body>
+</html>

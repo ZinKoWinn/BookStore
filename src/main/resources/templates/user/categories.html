@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{layouts/main :: layout(~{::main})}" xmlns:th="http://www.thymeleaf.org">
+<body>
+<main role="main">
+
+    <ol class="breadcrumb mt-1">
+        <li class="breadcrumb-item"><a href="#" th:href="@{/home}">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Categories</li>
+    </ol>
+
+    <div class="row row-cols-1 row-cols-xs-3 row-cols-sm-4 row-cols-lg-6 mx-auto g-3 py-3">
+        <div class="col-md-4" th:if="${categories.isEmpty()}">
+            <div class="alert alert-warning" role="alert">
+                No Category Defined Yet
+            </div>
+        </div>
+
+        <div class="col mb-3" th:each="category :${categories}">
+            <div class="card h-100 shadow-sm">
+                <img src="https://img.icons8.com/clouds/100/000000/books.png" class="card-img-top" alt="...">
+                <hr class="solid">
+                <div class="card-body d-flex flex-column">
+                    <h5 th:text="${category.name}"></h5>
+                    <p class="card-text text-justify text-overflow" th:text="${category.description}"></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en" th:replace="~{layouts/main :: layout(~{::main})}" xmlns:th="http://www.thymeleaf.org">
+<body>
+<main role="main">
+    <div class="jumbotron text-center">
+        <h1 class="display-3">Thank You!</h1>
+        <p class="lead"><strong>Please check your email</strong> we have been sent your bought books to your email.</p>
+        <hr>
+        <p>
+            Having trouble? <a href="">Contact us</a>
+        </p>
+        <p class="lead">
+            <a class="btn btn-primary btn-sm" href="#" th:href="@{/home}" role="button">Continue to homepage</a>
+        </p>
+    </div>
+</main>
+</body>
+</html>
