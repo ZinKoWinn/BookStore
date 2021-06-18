@@ -22,11 +22,11 @@
 
               <a href="#" th:if="${item.getBook().imageUrl == ''}" th:href="@{'/images/book_'+${item.getBook().id}+'.jpg'}">
                 <img th:if="${item.getBook().imageUrl == ''}"
-                     width="110px" height="150px"   th:src="@{'/images/book_'+${item.getBook().id}+'.jpg'}" class="img-responsive" alt="...">
+                     width="110px" height="150px"   th:src="@{'/images/book_'+${item.getBook().id}+'.jpg'}" class="img-fluid card-img-top" alt="...">
               </a>
 
               <a href="#" th:if="${item.getBook().imageUrl != ''}" th:href="@{${item.getBook().imagePath}}">
-                <img th:if="${item.getBook().imageUrl != ''}" th:src="${item.getBook().imagePath}" class="img-responsive"
+                <img th:if="${item.getBook().imageUrl != ''}" th:src="${item.getBook().imagePath}" class="img-fluid card-img-top"
                      alt="...">
               </a>
 
