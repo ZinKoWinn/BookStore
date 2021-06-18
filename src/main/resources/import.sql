@@ -1,2 +1,1 @@
 INSERT INTO `book_store`.`user` (`email`, `image_url`, `name`, `password`, `registration_date`, `roles`) VALUES ('admin@gmail.com', '', 'Admin', '$2a$10$GKqRlscDk9V7gW3.v592Ee9nIyFETGelsgpgTwbevVkGA5Q4nF2wG', '2021-06-16', 'ROLE_ADMIN');
-INSERT INTO `book_store`.`user` (`email`, `image_url`, `name`, `password`, `registration_date`, `roles`) VALUES ('user@gmail.com', '', 'User', '$2a$10$kyMkgWez7Q.lZ8jK23hJru6KXXbHzo6Iyh5kUfQtpmwFIXNMJpsH6', '2021-06-16', 'ROLE_USER');
