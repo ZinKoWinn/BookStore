@@ -1,5 +1,6 @@
 package com.zinko.bookstore.controller;
 
+import com.zinko.bookstore.dto.UserDto;
 import com.zinko.bookstore.models.Cart;
 import com.zinko.bookstore.models.entities.User;
 import com.zinko.bookstore.services.AuthService;
@@ -22,14 +23,14 @@ public class OrderController {
     @Autowired
     private Cart cart;
 
-    @GetMapping("cart/user/books/checkout")
+    @GetMapping("/cart/user/books/checkout")
     public String checkOut(Model model, HttpServletResponse response) throws IOException {
         if (cart.getCartItems().isEmpty()) {
-            return "redirect:user/books";
+            return "redirect:/user/books";
         }
 
         if (authService.isLogged()) {
-            User user = userService.findByEmail(authService.findLoggedInUsername());
+            UserDto user = userService.findByEmail(authService.findLoggedInUsername());
             model.addAttribute("user", user);
             model.addAttribute("cart", new Cart());
             model.addAttribute("books", cart.getCartItems());

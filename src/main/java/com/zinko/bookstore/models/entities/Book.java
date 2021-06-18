@@ -12,6 +12,7 @@ import static javax.persistence.FetchType.EAGER;
 
 @Entity
 @Data
+@ToString
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +32,7 @@ public class Book {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate publishedDate;
     private long rate;
+    private String imageUrl;
     @Lob
     private String content;
     @Transient

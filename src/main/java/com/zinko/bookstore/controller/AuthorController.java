@@ -4,12 +4,17 @@ import com.zinko.bookstore.dto.AuthorDto;
 import com.zinko.bookstore.models.entities.Author;
 import com.zinko.bookstore.models.entities.Category;
 import com.zinko.bookstore.services.AuthorService;
+import com.zinko.bookstore.utils.FileUploadUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.io.IOException;
 
 
 @Controller
@@ -36,11 +41,15 @@ public class AuthorController {
     }
 
     @PostMapping("/admin/authors/author/add")
-    public String create(AuthorDto author, BindingResult bindingResult) {
+    public String create(AuthorDto author, BindingResult bindingResult, @RequestParam("authorImage") MultipartFile multipartFile) throws IOException {
         if (bindingResult.hasErrors()) {
             return "admin/author-create";
         } else {
-            authorService.create(author);
+            String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+            author.setImageUrl(fileName);
+            Author a = authorService.create(author);
+            String uploadDir = "appImages/" + "authors/" + a.getName();
+            FileUploadUtils.saveFile(uploadDir, fileName, multipartFile);
             return "redirect:/admin/authors";
         }
 

@@ -1,5 +1,6 @@
 package com.zinko.bookstore.models;
 
+import com.zinko.bookstore.dto.UserDto;
 import com.zinko.bookstore.models.entities.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -29,7 +30,7 @@ public class CustomUserDetails implements UserDetails {
         this.registrationDate = registrationDate;
     }
 
-    public static CustomUserDetails build(User user) {
+    public static CustomUserDetails build(UserDto user) {
         SimpleGrantedAuthority authorities = new SimpleGrantedAuthority(user.getRoles().name());
         return new CustomUserDetails(user.getId(), user.getName(), user.getEmail(), user.getPassword(), Arrays.asList(authorities), user.getImageUrl(), user.getRegistrationDate());
     }
@@ -44,6 +45,10 @@ public class CustomUserDetails implements UserDetails {
 
     public String getImageUrl() {
         return imageUrl;
+    }
+
+    public String getImagePath() {
+        return "/appImages/users/Profile Images/" + name + "/" + imageUrl;
     }
 
     public LocalDate getRegistrationDate() {

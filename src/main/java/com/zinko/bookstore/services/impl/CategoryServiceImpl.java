@@ -1,6 +1,7 @@
 package com.zinko.bookstore.services.impl;
 
 import com.zinko.bookstore.dto.CategoryDto;
+import com.zinko.bookstore.mapper.CategoryMapper;
 import com.zinko.bookstore.models.entities.Category;
 import com.zinko.bookstore.repositories.CategoryRepository;
 import com.zinko.bookstore.services.CategoryService;
@@ -14,30 +15,32 @@ import java.util.stream.Collectors;
 public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
+    @Autowired
+    private CategoryMapper categoryMapper;
 
     @Override
     public Category create(CategoryDto c) {
-        return categoryRepository.save(CategoryDto.toEntity(c));
+        return categoryRepository.save(categoryMapper.mapToEntity(c));
     }
 
     @Override
     public List<CategoryDto> findAll() {
-        return categoryRepository.findAll().stream().map(category -> CategoryDto.fromEntity(category)).collect(Collectors.toList());
+        return categoryRepository.findAll().stream().map(category -> categoryMapper.mapFromEntity(category)).collect(Collectors.toList());
     }
 
     @Override
     public CategoryDto findByName(String name) {
-        return CategoryDto.fromEntity(categoryRepository.findByName(name));
+        return categoryMapper.mapFromEntity(categoryRepository.findByName(name));
     }
 
     @Override
     public CategoryDto findById(int id) {
-        return CategoryDto.fromEntity(categoryRepository.findById(id));
+        return categoryMapper.mapFromEntity(categoryRepository.findById(id));
     }
 
     @Override
     public CategoryDto update(String name, int id) {
-        return CategoryDto.fromEntity(categoryRepository.update(name, id));
+        return categoryMapper.mapFromEntity(categoryRepository.update(name, id));
     }
 
     @Override

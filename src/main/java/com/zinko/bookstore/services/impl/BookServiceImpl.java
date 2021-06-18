@@ -1,6 +1,7 @@
 package com.zinko.bookstore.services.impl;
 
 import com.zinko.bookstore.dto.BookDto;
+import com.zinko.bookstore.mapper.BookMapper;
 import com.zinko.bookstore.models.entities.Book;
 import com.zinko.bookstore.repositories.BookRepository;
 import com.zinko.bookstore.services.BookService;
@@ -14,40 +15,45 @@ import java.util.stream.Collectors;
 public class BookServiceImpl implements BookService {
     @Autowired
     private BookRepository bookRepository;
+    @Autowired
+    private BookMapper bookMapper;
 
     @Override
     public Book create(BookDto book) {
-        return bookRepository.save(BookDto.toEntity(book));
+        return bookRepository.save(bookMapper.mapToEntity(book));
     }
 
     @Override
     public List<BookDto> findAll() {
-        return bookRepository.findAll().stream().map(book -> BookDto.fromEntity(book)).collect(Collectors.toList());
+        return bookRepository.findAll().stream().map(book -> bookMapper.mapFromEntity(book)).collect(Collectors.toList());
     }
 
     @Override
     public List<BookDto> findByNameLike(String name) {
-        return bookRepository.findByNameLike("%".concat(name).concat("%")).stream().map(book -> BookDto.fromEntity(book)).collect(Collectors.toList());
+        if (name != null) {
+            return bookRepository.findByNameLike("%".concat(name).concat("%")).stream().map(book -> bookMapper.mapFromEntity(book)).collect(Collectors.toList());
+        }
+        return findAll();
     }
 
     @Override
     public BookDto findById(int id) {
-        return BookDto.fromEntity(bookRepository.findById(id));
+        return bookMapper.mapFromEntity(bookRepository.findById(id));
     }
 
     @Override
     public BookDto findByAuthor(int authorId) {
-        return BookDto.fromEntity(bookRepository.findByAuthor(authorId));
+        return bookMapper.mapFromEntity(bookRepository.findByAuthor(authorId));
     }
 
     @Override
     public BookDto findByCategory(int categoryId) {
-        return BookDto.fromEntity(bookRepository.findByCategory(categoryId));
+        return bookMapper.mapFromEntity(bookRepository.findByCategory(categoryId));
     }
 
     @Override
     public void update(BookDto book) {
-        bookRepository.save(BookDto.toEntity(book));
+        bookRepository.save(bookMapper.mapToEntity(book));
     }
 
     @Override

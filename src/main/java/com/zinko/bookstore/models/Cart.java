@@ -2,7 +2,9 @@ package com.zinko.bookstore.models;
 
 import com.zinko.bookstore.dto.BookDto;
 import com.zinko.bookstore.models.entities.Book;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.context.annotation.SessionScope;
 
 import javax.persistence.EntityNotFoundException;

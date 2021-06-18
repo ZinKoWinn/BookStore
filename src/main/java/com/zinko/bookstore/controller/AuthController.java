@@ -1,9 +1,11 @@
 package com.zinko.bookstore.controller;
 
 import com.zinko.bookstore.dto.RegisterDto;
+import com.zinko.bookstore.models.entities.Author;
 import com.zinko.bookstore.models.entities.User;
 import com.zinko.bookstore.services.AuthService;
 import com.zinko.bookstore.services.UserService;
+import com.zinko.bookstore.utils.FileUploadUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,13 +15,16 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @Controller
 public class AuthController {
@@ -36,14 +41,18 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String register(RegisterDto registerDto, BindingResult bindingResult, HttpServletRequest request) throws ServletException {
+    public String register(RegisterDto registerDto, BindingResult bindingResult, @RequestParam("userImage") MultipartFile multipartFile) throws ServletException, IOException {
         if (bindingResult.hasErrors()) {
             return "authentication/register";
         } else {
             if (userService.exitsByEmail(registerDto.getEmail())) {
                 throw new IllegalStateException("Email is already taken!" + HttpStatus.BAD_REQUEST);
             }
-            userService.register(registerDto);
+            String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+            registerDto.setImageUrl(fileName);
+            User user = userService.register(registerDto);
+            String uploadDir = "appImages/" + "users/Profile Images/" + user.getName();
+            FileUploadUtils.saveFile(uploadDir, fileName, multipartFile);
             authService.loginProcess(registerDto.getEmail(), registerDto.getPassword());
 
         }

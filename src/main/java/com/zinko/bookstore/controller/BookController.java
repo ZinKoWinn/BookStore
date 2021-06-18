@@ -3,18 +3,24 @@ package com.zinko.bookstore.controller;
 import com.zinko.bookstore.dto.AuthorDto;
 import com.zinko.bookstore.dto.BookDto;
 import com.zinko.bookstore.dto.CategoryDto;
-import com.zinko.bookstore.models.entities.Author;
+import com.zinko.bookstore.mapper.AuthorMapper;
+import com.zinko.bookstore.mapper.CategoryMapper;
 import com.zinko.bookstore.models.entities.Book;
-import com.zinko.bookstore.models.entities.Category;
 import com.zinko.bookstore.services.AuthorService;
 import com.zinko.bookstore.services.BookService;
 import com.zinko.bookstore.services.CategoryService;
+import com.zinko.bookstore.utils.FileUploadUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.io.IOException;
 
 
 @Controller
@@ -25,12 +31,19 @@ public class BookController {
     private AuthorService authorService;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private AuthorMapper authorMapper;
+    @Autowired
+    private CategoryMapper categoryMapper;
 
 
     @GetMapping("/user/books")
-    public ModelAndView findAll() {
-        return new ModelAndView("user/books", "books", bookService.findAll());
+    public String findByName(Model model, @Param("bookName") String bookName) {
+        model.addAttribute("books", bookService.findByNameLike(bookName));
+        model.addAttribute("bookName", bookName);
+        return "user/books";
     }
+
 
     @GetMapping("/admin/books")
     public ModelAndView findAllByAdmin() {
@@ -46,17 +59,18 @@ public class BookController {
     }
 
     @PostMapping("/admin/books/book/add")
-    public String create(BookDto book, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "admin/book-create";
-        } else {
-            AuthorDto author = authorService.findById(book.getAuthor().getId());
-            CategoryDto category = categoryService.findById(book.getCategory().getId());
-            book.setAuthor(AuthorDto.toEntity(author));
-            book.setCategory(CategoryDto.toEntity(category));
-            bookService.create(book);
-            return "redirect:/admin/books";
-        }
+    public String create(@ModelAttribute BookDto book, BindingResult bindingResult, @RequestParam("bookImage") MultipartFile multipartFile) throws IOException {
+
+        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        AuthorDto author = authorService.findById(book.getAuthor().getId());
+        CategoryDto category = categoryService.findById(book.getCategory().getId());
+        book.setAuthor(authorMapper.mapToEntity(author));
+        book.setCategory(categoryMapper.mapToEntity(category));
+        book.setImageUrl(fileName);
+        Book b = bookService.create(book);
+        String uploadDir = "appImages/" + "books/" + b.getName();
+        FileUploadUtils.saveFile(uploadDir, fileName, multipartFile);
+        return "redirect:/admin/books";
 
     }
 
@@ -77,7 +91,7 @@ public class BookController {
 
     @GetMapping("/user/books/book/details/{id}")
     public String detail(Model model, @PathVariable int id) {
-        model.addAttribute("book",bookService.findById(id));
+        model.addAttribute("book", bookService.findById(id));
         return "user/book-detail";
     }
 

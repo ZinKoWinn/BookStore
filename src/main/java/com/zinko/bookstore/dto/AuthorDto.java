@@ -20,21 +20,8 @@ public class AuthorDto {
         this.about = about;
     }
 
-    public static Author toEntity(AuthorDto authorDto) {
-        Author author = new Author();
-        author.setId(authorDto.getId());
-        author.setName(authorDto.getName());
-        author.setImageUrl(authorDto.getImageUrl());
-        author.setAbout(authorDto.getAbout());
-        return author;
+    public String getImagePath() {
+        return "/appImages/authors/" + name + "/" + imageUrl;
     }
 
-    public static AuthorDto fromEntity(Author author) {
-        return new AuthorDto(
-                author.getId(),
-                author.getName(),
-                author.getImageUrl(),
-                author.getAbout()
-        );
-    }
 }

@@ -15,11 +15,17 @@
 
     <tbody>
     <tr th:each="category:${adminCategories}">
-        <td>
-            <a href="https://img.icons8.com/clouds/100/000000/books.png">
-            <img class="circle-image" th:src="@{${category.getPhotosImagePath()}}">
-<!--            <img class="circle-image" src="#" th:src="${category.photosImagePath}">-->
-        </a>
+
+
+        <td th:if="${category.imageUrl != ''}">
+            <a href="#" th:href="@{${category.imagePath}}">
+                <img class="circle-image" src="#" th:src="${category.imagePath}"></a>
+        </td>
+
+        <td th:if="${category.imageUrl == ''}">
+            <a href="#" th:href="@{'/images/category_'+${category.id}+'.png'}">
+                <img class="circle-image" src="#" th:src="@{'/images/category_'+${category.id}+'.png'}"></a>
+        </td>
         </td>
         <td th:text="${category.id}"></td>
         <td th:text="${category.name}"></td>

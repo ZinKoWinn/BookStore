@@ -1,23 +1,24 @@
 package com.zinko.bookstore.services;
 
 import com.zinko.bookstore.dto.RegisterDto;
+import com.zinko.bookstore.dto.UserDto;
 import com.zinko.bookstore.models.entities.User;
 
 import java.util.List;
 
 
 public interface UserService {
-    User create(User user);
+    User create(UserDto user);
 
-    List<User> findAll();
+    List<UserDto> findAll();
 
-    User findById(int id);
+    UserDto findById(int id);
 
-    User findByUserName(String username);
+    UserDto findByUserName(String username);
 
-    User findByEmail(String email);
+    UserDto findByEmail(String email);
 
-    User update(User user);
+    void update(UserDto user);
 
     void delete(int id);
 

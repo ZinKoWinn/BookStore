@@ -48,7 +48,7 @@ public class CategoryController {
             String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
             category.setImageUrl(fileName);
             Category c = categoryService.create(category);
-            String uploadDir = "category-photos/" + c.getId();
+            String uploadDir = "appImages/" + "categories/" + c.getName();
             FileUploadUtils.saveFile(uploadDir, fileName, multipartFile);
 
             return "redirect:/admin/categories";

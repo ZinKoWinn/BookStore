@@ -1,6 +1,6 @@
 package com.zinko.bookstore.controller;
 
-import com.zinko.bookstore.models.entities.User;
+import com.zinko.bookstore.dto.UserDto;
 import com.zinko.bookstore.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,18 +15,18 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("users")
-    public List<User> allUser() {
+    public List<UserDto> allUser() {
         return userService.findAll();
     }
 
     @GetMapping("users/user/{name}")
-    public User findOne(@PathVariable String name) {
+    public UserDto findOne(@PathVariable String name) {
         return userService.findByUserName(name);
     }
 
     @PostMapping("users/user/update")
-    public User updateUser(@RequestBody User user) {
-        return userService.update(user);
+    public void updateUser(@RequestBody UserDto user) {
+         userService.update(user);
     }
 
     @DeleteMapping("users/user/{id}")

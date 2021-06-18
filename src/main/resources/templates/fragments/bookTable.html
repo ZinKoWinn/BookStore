@@ -20,8 +20,13 @@
 
     <tbody>
     <tr th:each="book:${adminBooks}">
-        <td><a href="https://img.icons8.com/clouds/100/000000/books.png">
-            <img class="circle-image" src="https://img.icons8.com/clouds/100/000000/books.png"></a>
+        <td th:if="${book.imageUrl != ''}">
+            <a href="#" th:href="@{${book.imagePath}}">
+            <img class="circle-image" src="#" th:src="${book.imagePath}"></a>
+        </td>
+        <td th:if="${book.imageUrl == ''}">
+            <a href="#" th:href="@{'/images/book_'+${book.id}+'.jpg'}">
+                <img class="circle-image" src="#" th:src="@{'/images/book_'+${book.id}+'.jpg'}"></a>
         </td>
         <td th:text="${book.id}"></td>
         <td th:text="${book.name}"></td>

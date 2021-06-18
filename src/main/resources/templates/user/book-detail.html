@@ -20,8 +20,18 @@
         <div class="row mx-auto">
             <div class="col-md-3 mb-4 mb-md-0">
                 <div class="card">
-                    <img src="https://spzone-simpleprogrammer.netdna-ssl.com/wp-content/uploads/2015/03/careerguide-amazon.jpg"
-                         class="img-fluid" alt="...">
+
+                    <a href="#" th:if="${book.imageUrl == ''}" th:href="@{'/images/book_'+${book.id}+'.jpg'}">
+                        <img th:if="${book.imageUrl == ''}"
+                             th:src="@{'/images/book_'+${book.id}+'.jpg'}" class="img-fluid" alt="...">
+                    </a>
+
+                    <a href="#" th:if="${book.imageUrl != ''}" th:href="@{${book.imagePath}}">
+
+                        <img th:if="${book.imageUrl != ''}" th:src="${book.imagePath}" class="img-fluid"
+                             alt="...">
+                    </a>
+
                 </div>
             </div>
 

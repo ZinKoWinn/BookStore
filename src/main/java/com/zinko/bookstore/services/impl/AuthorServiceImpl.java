@@ -1,6 +1,7 @@
 package com.zinko.bookstore.services.impl;
 
 import com.zinko.bookstore.dto.AuthorDto;
+import com.zinko.bookstore.mapper.AuthorMapper;
 import com.zinko.bookstore.models.entities.Author;
 import com.zinko.bookstore.repositories.AuthorRepository;
 import com.zinko.bookstore.services.AuthorService;
@@ -14,30 +15,32 @@ import java.util.stream.Collectors;
 public class AuthorServiceImpl implements AuthorService {
     @Autowired
     private AuthorRepository authorRepository;
+    @Autowired
+    private AuthorMapper authorMapper;
 
     @Override
     public Author create(AuthorDto author) {
-        return authorRepository.save(AuthorDto.toEntity(author));
+        return authorRepository.save(authorMapper.mapToEntity(author));
     }
 
     @Override
     public List<AuthorDto> findAll() {
-        return authorRepository.findAll().stream().map(author -> AuthorDto.fromEntity(author)).collect(Collectors.toList());
+        return authorRepository.findAll().stream().map(author -> authorMapper.mapFromEntity(author)).collect(Collectors.toList());
     }
 
     @Override
     public AuthorDto findByName(String name) {
-        return AuthorDto.fromEntity(authorRepository.findByName(name));
+        return authorMapper.mapFromEntity(authorRepository.findByName(name));
     }
 
     @Override
     public AuthorDto findById(int id) {
-        return AuthorDto.fromEntity(authorRepository.findById(id));
+        return authorMapper.mapFromEntity(authorRepository.findById(id));
     }
 
     @Override
     public void update(AuthorDto author) {
-        authorRepository.save(AuthorDto.toEntity(author));
+        authorRepository.save(authorMapper.mapToEntity(author));
     }
 
     @Override

@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <body>
-<form th:fragment="bookForm" action="#" th:action="@{/admin/books/book/add}" th:object="${book}"
-      method="post" class="form form-signin">
+<form th:fragment="bookForm" action="#" th:action="@{/admin/books/book/add}" th:object="${book}" method="post"
+      enctype="multipart/form-data" class="form form-signin">
 
     <div class="row">
         <div class="col-md-6 mb-3">
             <label for="name">Book Name</label>
-            <input th:field="*{name}" type="text" id="name" name="name" class="form-control"
-                   placeholder="Enter Book's Name" required>
+            <input id="name" type="text" class="form-control" th:field="*{name}" placeholder="Enter Book's Name"
+                   required>
         </div>
 
         <div class="col-md-6 mb-3">
@@ -26,11 +25,9 @@
 
 
     <div class="row">
-
-
         <div class="col-md-6 mb-3">
             <label for="author">Author</label>
-            <select name="" th:field="*{author}" id="author" class="form-select col">
+            <select th:field="*{author}" id="author" class="form-select col">
                 <option th:each="author :${authors}" th:text="${author.name}" th:value="${author.id}">
 
                 </option>
@@ -40,13 +37,12 @@
 
         <div class="col-md-6 mb-3">
             <label for="category">Category</label>
-            <select name="" th:field="*{category}" id="category" class="form-select col">
+            <select th:field="*{category}" id="category" class="form-select col">
                 <option th:each="category :${categories}" th:text="${category.name}" th:value="${category.id}">
 
                 </option>
             </select>
         </div>
-
 
     </div>
 
@@ -54,18 +50,32 @@
     <div class="row">
         <div class="col-md-6 mb-3">
             <label for="price">Price</label>
-            <input th:field="*{price}" type="text" id="price" name="name" class="form-control"
+            <input th:field="*{price}" type="text" id="price" class="form-control"
                    placeholder="Enter Book's Price" required>
         </div>
 
 
         <div class="col-md-6 mb-3">
             <label for="rate">Rate</label>
-            <input th:field="*{rate}" type="text" id="rate" name="name" class="form-control"
+            <input th:field="*{rate}" type="text" id="rate" class="form-control"
                    placeholder="Enter Book's Rate" required>
         </div>
 
     </div>
+
+
+    <div class="row">
+        <div class="col-md-12 mb-3">
+            <div class="input-group mb-3">
+<!--                <div class="custom-file">-->
+                    <input type="file" accept="image/*" name="bookImage"  id="customFile">
+<!--                    <label class="custom-file-label" for="customFile"></label>-->
+<!--                </div>-->
+            </div>
+        </div>
+    </div>
+
+
     <div class="row">
         <div class="col-md-12 mb-3">
             <label for="description">Description</label>
@@ -79,11 +89,10 @@
             <textarea th:field="*{content}" rows="7" type="text" id="content" name="name" class="form-control"
                       placeholder="Enter Book's Description" required/>
         </div>
+    </div>
 
-
-        <div class="col-md-12 mb-3">
-            <button type="submit" class="btn btn-primary btn-block py-2 ">Save</button>
-        </div>
+    <div class="col-md-12 mb-3">
+        <button type="submit" class="btn btn-primary btn-block py-2 ">Save</button>
     </div>
 
 </form>

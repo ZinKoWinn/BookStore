@@ -1,16 +1,17 @@
 package com.zinko.bookstore.services.impl;
 
 import com.zinko.bookstore.dto.RegisterDto;
-import com.zinko.bookstore.models.Role;
+import com.zinko.bookstore.dto.UserDto;
+import com.zinko.bookstore.mapper.RegisterMapper;
+import com.zinko.bookstore.mapper.UserMapper;
 import com.zinko.bookstore.models.entities.User;
 import com.zinko.bookstore.repositories.UserRepository;
 import com.zinko.bookstore.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -19,21 +20,25 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private RegisterMapper registerMapper;
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
-    public User create(User user) {
+    public User create(UserDto user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+        return userRepository.save(userMapper.mapToEntity(user));
     }
 
     @Override
-    public List<User> findAll() {
-        return (List<User>) userRepository.findAll();
+    public List<UserDto> findAll() {
+        return userRepository.findAll().stream().map(user -> userMapper.mapFromEntity(user)).collect(Collectors.toList());
     }
 
     @Override
-    public User update(User user) {
-        return userRepository.save(user);
+    public void update(UserDto user) {
+        userRepository.save(userMapper.mapToEntity(user));
     }
 
     @Override
@@ -42,19 +47,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findById(int id) {
-        return userRepository.findById(id);
+    public UserDto findById(int id) {
+        return userMapper.mapFromEntity(userRepository.findById(id));
     }
 
     @Override
-    public User findByUserName(String username) {
-        return userRepository.findByName(username);
+    public UserDto findByUserName(String username) {
+        return userMapper.mapFromEntity(userRepository.findByName(username));
     }
 
     @Override
-    public User findByEmail(String email) {
-        return userRepository.findByEmail(email);
+    public UserDto findByEmail(String email) {
+        return userMapper.mapFromEntity(userRepository.findByEmail(email));
     }
+
 
     @Override
     public boolean exitsByEmail(String email) {
@@ -64,14 +70,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User register(RegisterDto registerDto) {
-        User user = new User();
-        user.setName(registerDto.getUsername());
-        user.setImageUrl(registerDto.getImageUrl());
-        user.setEmail(registerDto.getEmail());
-        user.setPassword(registerDto.getPassword());
-        user.setRegistrationDate(LocalDate.now());
-        user.setRoles(Role.ROLE_ADMIN);
-        return create(user);
+        return create(registerMapper.mapToEntity(registerDto));
     }
 
 

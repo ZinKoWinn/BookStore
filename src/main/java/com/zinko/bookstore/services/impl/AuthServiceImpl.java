@@ -16,16 +16,15 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public String findLoggedInUsername() {
-        Object userDetails = SecurityContextHolder.getContext().getAuthentication().getDetails();
-        if (userDetails instanceof CustomUserDetails)
-            return ((CustomUserDetails) userDetails).getUsername();
-        return null;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return  auth.getName();
     }
 
     @Override
     public boolean isLogged() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return null != authentication && !("anonymousUser").equals(authentication.getName());
+
     }
 
     @Override

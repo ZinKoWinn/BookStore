@@ -15,7 +15,17 @@
 
     <tbody>
     <tr th:each="author:${adminAuthors}">
-        <td><a href="#" th:href="${author.imageUrl}"><img class="circle-image" src="#" th:src="${author.imageUrl}"></a></td>
+
+        <td th:if="${author.imageUrl != ''}">
+            <a href="#" th:href="@{${author.imagePath}}">
+                <img class="circle-image" src="#" th:src="${author.imagePath}"></a>
+        </td>
+
+        <td th:if="${author.imageUrl == ''}">
+            <a href="#" th:href="@{'/images/author_'+${author.id}+'.jpg'}">
+                <img class="circle-image" src="#" th:src="@{'/images/author_'+${author.id}+'.jpg'}"></a>
+        </td>
+
         <td th:text="${author.id}"></td>
         <td th:text="${author.name}"></td>
         <td><p class="text-overflow" th:text="${author.about}"></p></td>
