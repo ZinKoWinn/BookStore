@@ -3,8 +3,8 @@ package com.zinko.bookstore;
 import com.zinko.bookstore.dto.AuthorDto;
 import com.zinko.bookstore.dto.BookDto;
 import com.zinko.bookstore.dto.CategoryDto;
-import com.zinko.bookstore.mapper.AuthorMapper;
-import com.zinko.bookstore.mapper.CategoryMapper;
+import com.zinko.bookstore.mapper.impl.AuthorMapperImpl;
+import com.zinko.bookstore.mapper.impl.CategoryMapperImpl;
 import com.zinko.bookstore.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -23,9 +23,9 @@ public class InitData {
     @Autowired
     private AuthorService authorService;
     @Autowired
-    private AuthorMapper authorMapper;
+    private AuthorMapperImpl authorMapper;
     @Autowired
-    private CategoryMapper categoryMapper;
+    private CategoryMapperImpl categoryMapper;
 
     @Bean
     public CommandLineRunner initRunner() {

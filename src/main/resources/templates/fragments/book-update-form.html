@@ -2,8 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <body>
-<form th:fragment="bookUpDateForm" action="#" th:action="@{/admin/books/book/update}" th:object="${book}"
-      method="post" class="form form-signin">
+<form th:fragment="bookUpDateForm" action="#" th:action="@{/admin/books/book/update/{id}(id=${book.id})}"
+      th:object="${book}" method="post" enctype="multipart/form-data" class="form form-signin">
 
     <div class="row">
         <div class="col-md-6 mb-3">
@@ -15,8 +15,8 @@
         <div class="col-md-6 mb-3">
             <label for="publishedDate">Published Date</label>
             <div class="input-group date">
-                <input type="date" class="form-control" id="publishedDate" autocomplete="off"
-                       th:field="*{publishedDate}"/>
+                <input type="date" class="form-control" value="publishedDate" id="publishedDate" autocomplete="on"
+                       th:value="*{publishedDate}"/>
                 <div class="input-group-append">
                     <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                 </div>
@@ -63,8 +63,16 @@
             <input th:field="*{rate}" type="text" id="rate" name="name" class="form-control"
                    placeholder="Enter Book's Rate" required>
         </div>
-
     </div>
+
+
+    <div class="col-md-12 mb-3">
+        <label for="image">Image Url</label>
+        <input th:value="${bookUpdateImage}" type="file" id="image"  value="bookUpdateImage" name="bookUpdateImage" class="form-control"
+               accept="image/png, image/jpeg">
+    </div>
+
+
     <div class="row">
         <div class="col-md-12 mb-3">
             <label for="description">Description</label>

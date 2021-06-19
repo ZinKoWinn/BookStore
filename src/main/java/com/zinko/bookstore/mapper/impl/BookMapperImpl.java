@@ -1,12 +1,12 @@
 package com.zinko.bookstore.mapper.impl;
 
 import com.zinko.bookstore.dto.BookDto;
-import com.zinko.bookstore.mapper.BookMapper;
+import com.zinko.bookstore.mapper.EntityMapper;
 import com.zinko.bookstore.models.entities.Book;
 import org.springframework.stereotype.Component;
 
 @Component
-public class BookMapperImpl implements BookMapper {
+public class BookMapperImpl implements EntityMapper<Book,BookDto> {
     @Override
     public Book mapToEntity(BookDto bookDto) {
         Book book = new Book();

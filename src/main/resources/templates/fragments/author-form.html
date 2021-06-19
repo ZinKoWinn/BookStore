@@ -13,12 +13,9 @@
     </div>
 
     <div class="col-md-12 mb-3">
-        <div class="input-group mb-3">
-            <div class="custom-file">
-                <input type="file" accept="image/*" name="authorImage" class="custom-file-input" id="image">
-                <label class="custom-file-label" for="image" aria-describedby="inputGroupFileAddon">Select an image</label>
-            </div>
-        </div>
+        <label for="image">Image Url</label>
+        <input th:value="${authorImage}" type="file" id="image" value="authorImage" name="authorImage"
+               class="form-control" accept="image/png, image/jpeg">
     </div>
 
 

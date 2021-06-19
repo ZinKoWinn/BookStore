@@ -3,13 +3,20 @@
 
 <body>
 
-<form th:fragment="categoryUpdateForm" action="#" th:action="@{/admin/categories/category/update}" th:object="${category}" method="post"
-      class="form-signin">
+<form th:fragment="categoryUpdateForm" action="#"
+      th:action="@{/admin/categories/category/update/{id}(id=${category.id})}" th:object="${category}" method="post"
+      enctype="multipart/form-data" class="form-signin">
 
     <div class="col-md-12 mb-3">
         <label for="name">Category Name</label>
         <input th:field="*{name}" type="text" id="name" name="name" class="form-control"
                placeholder="Enter Author's Name" required>
+    </div>
+
+    <div class="col-md-12 mb-3">
+        <label for="image">Image Url</label>
+        <input th:value="${categoryUpdateImage}" type="file" id="image"  value="categoryUpdateImage" name="categoryUpdateImage" class="form-control"
+               accept="image/png, image/jpeg">
     </div>
 
     <div class="col-md-12 mb-3">

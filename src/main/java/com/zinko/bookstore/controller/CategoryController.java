@@ -13,8 +13,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import java.io.IOException;
 
+import java.io.IOException;
 
 
 @Controller
@@ -62,9 +62,14 @@ public class CategoryController {
         return "admin/category-update";
     }
 
-    @PostMapping("/admin/categories/category/update")
-    public String update(CategoryDto category) {
-        categoryService.update(category.getName(), category.getId());
+    @PostMapping("/admin/categories/category/update/{id}")
+    public String update(@ModelAttribute CategoryDto category, BindingResult result, @PathVariable int id,@RequestParam("categoryUpdateImage") MultipartFile multipartFile) throws IOException {
+        category.setId(id);
+        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        category.setImageUrl(fileName);
+        Category c = categoryService.update(category);
+        String uploadDir = "appImages/" + "categories/" + c.getName();
+        FileUploadUtils.saveFile(uploadDir, fileName, multipartFile);
         return "redirect:/admin/categories";
 
 

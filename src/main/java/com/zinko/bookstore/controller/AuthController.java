@@ -1,15 +1,12 @@
 package com.zinko.bookstore.controller;
 
 import com.zinko.bookstore.dto.RegisterDto;
-import com.zinko.bookstore.models.entities.Author;
 import com.zinko.bookstore.models.entities.User;
 import com.zinko.bookstore.services.AuthService;
 import com.zinko.bookstore.services.UserService;
 import com.zinko.bookstore.utils.FileUploadUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -19,7 +16,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

@@ -3,8 +3,8 @@
 
 <body>
 
-<form th:fragment="authorUpdateForm" action="#" th:action="@{/admin/authors/author/add}" th:object="${author}" method="post"
-      class="form-signin">
+<form th:fragment="authorUpdateForm" action="#" th:action="@{/admin/authors/author/update/{id}(id=${author.id})}"
+      th:object="${author}" method="post" enctype="multipart/form-data" class="form-signin">
 
     <div class="col-md-12 mb-3">
         <label for="name">Author Name</label>
@@ -13,12 +13,10 @@
     </div>
 
     <div class="col-md-12 mb-3">
-        <div class="input-group mb-3">
-            <div class="custom-file">
-                <input type="file" th:value="*{imageUrl}" class="custom-file-input" id="image">
-                <label class="custom-file-label" for="image" aria-describedby="inputGroupFileAddon">Select an image(Ignore Now)</label>
-            </div>
-        </div>
+        <label for="image">Image Url</label>
+        <input th:value="${authorUpdateImage}" type="file" id="image" value="authorUpdateImage" name="authorUpdateImage"
+               class="form-control"
+               accept="image/png, image/jpeg">
     </div>
 
 

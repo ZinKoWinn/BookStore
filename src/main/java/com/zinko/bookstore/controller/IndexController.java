@@ -1,20 +1,14 @@
 package com.zinko.bookstore.controller;
 
-import com.zinko.bookstore.models.Cart;
-import com.zinko.bookstore.models.CustomUserDetails;
-import com.zinko.bookstore.models.entities.User;
 import com.zinko.bookstore.services.AuthorService;
 import com.zinko.bookstore.services.BookService;
 import com.zinko.bookstore.services.CategoryService;
 import com.zinko.bookstore.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 @Controller
 public class IndexController {

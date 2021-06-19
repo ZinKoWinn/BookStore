@@ -1,7 +1,7 @@
 package com.zinko.bookstore.services.impl;
 
 import com.zinko.bookstore.dto.BookDto;
-import com.zinko.bookstore.mapper.BookMapper;
+import com.zinko.bookstore.mapper.impl.BookMapperImpl;
 import com.zinko.bookstore.models.entities.Book;
 import com.zinko.bookstore.repositories.BookRepository;
 import com.zinko.bookstore.services.BookService;
@@ -16,7 +16,7 @@ public class BookServiceImpl implements BookService {
     @Autowired
     private BookRepository bookRepository;
     @Autowired
-    private BookMapper bookMapper;
+    private BookMapperImpl bookMapper;
 
     @Override
     public Book create(BookDto book) {
@@ -52,8 +52,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void update(BookDto book) {
-        bookRepository.save(bookMapper.mapToEntity(book));
+    public Book update(BookDto bookDto) {
+       return bookRepository.save( bookMapper.mapToEntity(bookDto));
     }
 
     @Override

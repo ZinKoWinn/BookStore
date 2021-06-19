@@ -2,8 +2,8 @@ package com.zinko.bookstore.services.impl;
 
 import com.zinko.bookstore.dto.RegisterDto;
 import com.zinko.bookstore.dto.UserDto;
-import com.zinko.bookstore.mapper.RegisterMapper;
-import com.zinko.bookstore.mapper.UserMapper;
+import com.zinko.bookstore.mapper.impl.RegisterMapperImpl;
+import com.zinko.bookstore.mapper.impl.UserMapperImpl;
 import com.zinko.bookstore.models.entities.User;
 import com.zinko.bookstore.repositories.UserRepository;
 import com.zinko.bookstore.services.UserService;
@@ -21,9 +21,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
-    private RegisterMapper registerMapper;
+    private RegisterMapperImpl registerMapper;
     @Autowired
-    private UserMapper userMapper;
+    private UserMapperImpl userMapper;
 
     @Override
     public User create(UserDto user) {

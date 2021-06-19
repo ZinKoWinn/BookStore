@@ -1,13 +1,13 @@
 package com.zinko.bookstore.mapper.impl;
 
 import com.zinko.bookstore.dto.UserDto;
-import com.zinko.bookstore.mapper.UserMapper;
+import com.zinko.bookstore.mapper.EntityMapper;
 import com.zinko.bookstore.models.Role;
 import com.zinko.bookstore.models.entities.User;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserMapperImpl implements UserMapper {
+public class UserMapperImpl implements EntityMapper<User,UserDto> {
     @Override
     public User mapToEntity(UserDto userDto) {
         User user = new User();

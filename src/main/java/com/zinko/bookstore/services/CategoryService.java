@@ -13,7 +13,7 @@ public interface CategoryService {
     CategoryDto findByName(String name);
 
 
-    CategoryDto update(String name, int id);
+    Category update(CategoryDto categoryDto);
 
     CategoryDto findById(int id);
 

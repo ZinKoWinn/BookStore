@@ -3,8 +3,8 @@ package com.zinko.bookstore.controller;
 import com.zinko.bookstore.dto.AuthorDto;
 import com.zinko.bookstore.dto.BookDto;
 import com.zinko.bookstore.dto.CategoryDto;
-import com.zinko.bookstore.mapper.AuthorMapper;
-import com.zinko.bookstore.mapper.CategoryMapper;
+import com.zinko.bookstore.mapper.impl.AuthorMapperImpl;
+import com.zinko.bookstore.mapper.impl.CategoryMapperImpl;
 import com.zinko.bookstore.models.entities.Book;
 import com.zinko.bookstore.services.AuthorService;
 import com.zinko.bookstore.services.BookService;
@@ -32,9 +32,9 @@ public class BookController {
     @Autowired
     private CategoryService categoryService;
     @Autowired
-    private AuthorMapper authorMapper;
+    private AuthorMapperImpl authorMapper;
     @Autowired
-    private CategoryMapper categoryMapper;
+    private CategoryMapperImpl categoryMapper;
 
 
     @GetMapping("/user/books")
@@ -82,10 +82,15 @@ public class BookController {
         return "admin/book-update";
     }
 
-    @PostMapping("/admin/books/book/update")
-    public String update(BookDto book) {
-        bookService.update(book);
-        return "redirect:admin/books";
+    @PostMapping("/admin/books/book/update/{id}")
+    public String update(@ModelAttribute BookDto book, @PathVariable int id, BindingResult result, @RequestParam("bookUpdateImage") MultipartFile multipartFile) throws IOException {
+        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        book.setId(id);
+        book.setImageUrl(fileName);
+        Book b = bookService.update(book);
+        String uploadDir = "appImages/" + "books/" + b.getName();
+        FileUploadUtils.saveFile(uploadDir, fileName, multipartFile);
+        return "redirect:/admin/books";
 
     }
 

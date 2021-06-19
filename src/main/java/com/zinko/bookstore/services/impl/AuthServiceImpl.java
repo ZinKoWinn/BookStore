@@ -1,6 +1,5 @@
 package com.zinko.bookstore.services.impl;
 
-import com.zinko.bookstore.models.CustomUserDetails;
 import com.zinko.bookstore.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;

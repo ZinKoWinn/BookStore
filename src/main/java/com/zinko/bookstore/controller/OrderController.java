@@ -2,7 +2,6 @@ package com.zinko.bookstore.controller;
 
 import com.zinko.bookstore.dto.UserDto;
 import com.zinko.bookstore.models.Cart;
-import com.zinko.bookstore.models.entities.User;
 import com.zinko.bookstore.services.AuthService;
 import com.zinko.bookstore.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

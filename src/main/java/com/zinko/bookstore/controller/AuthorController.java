@@ -2,7 +2,6 @@ package com.zinko.bookstore.controller;
 
 import com.zinko.bookstore.dto.AuthorDto;
 import com.zinko.bookstore.models.entities.Author;
-import com.zinko.bookstore.models.entities.Category;
 import com.zinko.bookstore.services.AuthorService;
 import com.zinko.bookstore.utils.FileUploadUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,9 +60,14 @@ public class AuthorController {
         return "admin/author-update";
     }
 
-    @PostMapping("/admin/authors/author/update")
-    public String update(AuthorDto author) {
-        authorService.update(author);
+    @PostMapping("/admin/authors/author/update/{id}")
+    public String update(AuthorDto author,@PathVariable int id,BindingResult bindingResult,@RequestParam("authorUpdateImage") MultipartFile multipartFile) throws IOException {
+        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        author.setId(id);
+        author.setImageUrl(fileName);
+        Author a = authorService.update(author);
+        String uploadDir = "appImages/" + "authors/" + a.getName();
+        FileUploadUtils.saveFile(uploadDir, fileName, multipartFile);
         return "redirect:/admin/authors";
 
 

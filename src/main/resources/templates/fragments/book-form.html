@@ -64,17 +64,11 @@
     </div>
 
 
-    <div class="row">
-        <div class="col-md-12 mb-3">
-            <div class="input-group mb-3">
-<!--                <div class="custom-file">-->
-                    <input type="file" accept="image/*" name="bookImage"  id="customFile">
-<!--                    <label class="custom-file-label" for="customFile"></label>-->
-<!--                </div>-->
-            </div>
-        </div>
+    <div class="col-md-12 mb-3">
+        <label for="image">Image Url</label>
+        <input th:value="${bookImage}" type="file" id="image"  value="bookImage" name="bookImage" class="form-control"
+               accept="image/png, image/jpeg">
     </div>
-
 
     <div class="row">
         <div class="col-md-12 mb-3">

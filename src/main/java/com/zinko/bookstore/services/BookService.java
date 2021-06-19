@@ -18,7 +18,7 @@ public interface BookService {
 
     BookDto findByCategory(int categoryId);
 
-    void update(BookDto book);
+    Book update(BookDto book);
 
     void delete(int id);
 

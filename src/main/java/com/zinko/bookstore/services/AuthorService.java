@@ -10,7 +10,7 @@ public interface AuthorService {
     List<AuthorDto> findAll();
     AuthorDto findByName(String name);
     AuthorDto findById(int id);
-    void update(AuthorDto author);
+    Author update(AuthorDto author);
     void delete(int id);
     long count();
     boolean existsById(int id);

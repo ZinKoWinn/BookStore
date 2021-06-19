@@ -1,7 +1,7 @@
 package com.zinko.bookstore.services.impl;
 
 import com.zinko.bookstore.dto.CategoryDto;
-import com.zinko.bookstore.mapper.CategoryMapper;
+import com.zinko.bookstore.mapper.impl.CategoryMapperImpl;
 import com.zinko.bookstore.models.entities.Category;
 import com.zinko.bookstore.repositories.CategoryRepository;
 import com.zinko.bookstore.services.CategoryService;
@@ -16,7 +16,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
     @Autowired
-    private CategoryMapper categoryMapper;
+    private CategoryMapperImpl categoryMapper;
 
     @Override
     public Category create(CategoryDto c) {
@@ -39,8 +39,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryDto update(String name, int id) {
-        return categoryMapper.mapFromEntity(categoryRepository.update(name, id));
+    public Category update(CategoryDto categoryDto) {
+        return categoryRepository.save(categoryMapper.mapToEntity(categoryDto));
     }
 
     @Override

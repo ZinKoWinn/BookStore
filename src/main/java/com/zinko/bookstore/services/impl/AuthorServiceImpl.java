@@ -1,7 +1,7 @@
 package com.zinko.bookstore.services.impl;
 
 import com.zinko.bookstore.dto.AuthorDto;
-import com.zinko.bookstore.mapper.AuthorMapper;
+import com.zinko.bookstore.mapper.impl.AuthorMapperImpl;
 import com.zinko.bookstore.models.entities.Author;
 import com.zinko.bookstore.repositories.AuthorRepository;
 import com.zinko.bookstore.services.AuthorService;
@@ -16,7 +16,7 @@ public class AuthorServiceImpl implements AuthorService {
     @Autowired
     private AuthorRepository authorRepository;
     @Autowired
-    private AuthorMapper authorMapper;
+    private AuthorMapperImpl authorMapper;
 
     @Override
     public Author create(AuthorDto author) {
@@ -39,8 +39,8 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public void update(AuthorDto author) {
-        authorRepository.save(authorMapper.mapToEntity(author));
+    public Author update(AuthorDto author) {
+       return authorRepository.save(authorMapper.mapToEntity(author));
     }
 
     @Override
