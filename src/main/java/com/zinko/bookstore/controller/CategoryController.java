@@ -4,6 +4,7 @@ import com.zinko.bookstore.dto.CategoryDto;
 import com.zinko.bookstore.models.entities.Category;
 import com.zinko.bookstore.services.CategoryService;
 import com.zinko.bookstore.utils.FileUploadUtils;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -14,7 +15,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 
 @Controller
@@ -63,7 +68,7 @@ public class CategoryController {
     }
 
     @PostMapping("/admin/categories/category/update/{id}")
-    public String update(@ModelAttribute CategoryDto category, BindingResult result, @PathVariable int id,@RequestParam("categoryUpdateImage") MultipartFile multipartFile) throws IOException {
+    public String update(@ModelAttribute CategoryDto category, BindingResult result, @PathVariable int id, @RequestParam("categoryUpdateImage") MultipartFile multipartFile) throws IOException {
         category.setId(id);
         String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
         category.setImageUrl(fileName);
@@ -76,9 +81,11 @@ public class CategoryController {
     }
 
     @GetMapping("/admin/categories/category/delete/{id}")
-    public String delete(@PathVariable int id) {
+    public String delete(@PathVariable int id) throws IOException {
         if (categoryService.existsById(id)) {
+            CategoryDto categoryDto = categoryService.findById(id);
             categoryService.delete(id);
+
         }
         return "redirect:/admin/categories";
     }
